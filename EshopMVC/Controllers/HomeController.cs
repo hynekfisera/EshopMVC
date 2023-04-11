@@ -1,6 +1,7 @@
 ﻿using EshopMVC.Data;
 using EshopMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace EshopMVC.Controllers
@@ -23,6 +24,16 @@ namespace EshopMVC.Controllers
 
 		public IActionResult Privacy()
 		{
+			return View();
+		}
+
+		public IActionResult Kategorie([FromRoute] string id)
+		{
+			var kategorie = _context.Kategorie.Include(x => x.ChildKategorie).Include(x => x.ParentKategorie).Where(x => x.KategorieId == new Guid(id)).ToList()[0];
+			if (kategorie != null)
+			{
+				return View(kategorie);
+			}
 			return View();
 		}
 

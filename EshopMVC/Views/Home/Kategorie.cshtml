@@ -1,0 +1,43 @@
+﻿@model EshopMVC.Models.Kategorie
+
+@{
+    ViewData["Title"] = "Kategorie";
+}
+
+<h1>Kategorie @Model.Nazev</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+@if (Model.ParentKategorie != null)
+{
+    <a href="/Home/Kategorie/@Model.ParentKategorie.KategorieId">Zpět na @Model.ParentKategorie.Nazev</a>
+} else
+{
+    <a href="/">Zpět na hlavní stránku</a>
+}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nazev)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.ChildKategorie) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazev)
+            </td>
+            <td><a href="/Home/Kategorie/@item.KategorieId">Přejít na @item.Nazev</a></td>
+            @*<td>
+                <a asp-action="Edit" asp-route-id="@item.KategorieId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.KategorieId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.KategorieId">Delete</a>
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>

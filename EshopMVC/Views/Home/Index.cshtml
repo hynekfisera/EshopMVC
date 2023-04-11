@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<EshopMVC.Models.Kategorie>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <h1>Index</h1>
@@ -10,32 +10,28 @@
     <a asp-action="Create">Create New</a>
 </p>*@
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nazev)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ParentKategorie)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nazev)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentKategorie.Nazev)
-            </td>
-            @*<td>
-                <a asp-action="Edit" asp-route-id="@item.KategorieId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.KategorieId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.KategorieId">Delete</a>
-            </td>*@
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Nazev)
+			</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Nazev)
+				</td>
+				<td><a href="/Home/Kategorie/@item.KategorieId">Přejít na @item.Nazev</a></td>
+				@*<td>
+			<a asp-action="Edit" asp-route-id="@item.KategorieId">Edit</a> |
+			<a asp-action="Details" asp-route-id="@item.KategorieId">Details</a> |
+			<a asp-action="Delete" asp-route-id="@item.KategorieId">Delete</a>
+			</td>*@
+			</tr>
+		}
+	</tbody>
 </table>
