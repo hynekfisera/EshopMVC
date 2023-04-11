@@ -11,5 +11,6 @@ namespace EshopMVC.Data
 		{
 		}
 		public DbSet<Kategorie> Kategorie { get; set; }
+		public DbSet<Vyrobek> Vyrobek { get; set; }
 	}
 }

@@ -10,5 +10,6 @@ namespace EshopMVC.Models
 		public Guid? ParentKategorieId { get; set; }
 		public Kategorie? ParentKategorie { get; set; }
 		public IEnumerable<Kategorie>? ChildKategorie { get; set; }
+		public IEnumerable<Vyrobek>? Vyrobky { get; set; }
 	}
 }

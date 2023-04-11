@@ -28,7 +28,7 @@
                 @Html.DisplayFor(modelItem => item.Nazev)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ParentKategorie.KategorieId)
+                @Html.DisplayFor(modelItem => item.ParentKategorie.Nazev)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.KategorieId">Edit</a> |
