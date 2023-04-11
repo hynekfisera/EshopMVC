@@ -48,7 +48,9 @@ namespace EshopMVC.Controllers
         // GET: Kategories/Create
         public IActionResult Create()
         {
-            ViewData["ParentKategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "KategorieId");
+            var select = new SelectList(_context.Kategorie, "KategorieId", "Nazev");
+            var item = new SelectListItem { Disabled = false, Group = null, Selected = false, Text = "Top-level kategorie", Value = "" };
+            ViewData["ParentKategorieId"] = select.Append(item);
             return View();
         }
 
@@ -66,7 +68,7 @@ namespace EshopMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ParentKategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "KategorieId", kategorie.ParentKategorieId);
+            ViewData["ParentKategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev", kategorie.ParentKategorieId);
             return View(kategorie);
         }
 
