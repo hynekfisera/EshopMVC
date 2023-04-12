@@ -1,10 +1,10 @@
-﻿@model IEnumerable<EshopMVC.Models.Kategorie>
+﻿@model (List<EshopMVC.Models.Kategorie> Kategorie, List<EshopMVC.Models.Vyrobek> Vyrobky)
 
 @{
 	ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="tw-text-4xl">Index</h1>
 
 @*<p>
     <a asp-action="Create">Create New</a>
@@ -13,13 +13,13 @@
 	<thead>
 		<tr>
 			<th>
-				@Html.DisplayNameFor(model => model.Nazev)
+				Název
 			</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var item in Model)
+		@foreach (var item in Model.Kategorie)
 		{
 			<tr>
 				<td>
@@ -35,3 +35,19 @@
 		}
 	</tbody>
 </table>
+
+<h2 class="tw-text-2xl">Produkty</h2>
+<section class="tw-grid tw-grid-cols-4 tw-gap-4 py-4">
+@foreach (var item in Model.Vyrobky)
+{
+	<div class="card">
+		@if (item.Obrazek != null) {
+			<img class="card-img-top" src="@item.Obrazek" alt="Produkt">
+		}
+		<div class="card-body">
+			<h5 class="card-title">@item.Nazev</h5>
+			<p class="card-text">@item.Popis</p>
+		</div>
+</div>
+	}
+</section>

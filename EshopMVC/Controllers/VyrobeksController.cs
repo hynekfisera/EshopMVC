@@ -48,7 +48,7 @@ namespace EshopMVC.Controllers
         // GET: Vyrobeks/Create
         public IActionResult Create()
         {
-            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "KategorieId");
+            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev");
             return View();
         }
 
@@ -66,7 +66,7 @@ namespace EshopMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "KategorieId", vyrobek.KategorieId);
+            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev", vyrobek.KategorieId);
             return View(vyrobek);
         }
 
@@ -83,7 +83,7 @@ namespace EshopMVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "KategorieId", vyrobek.KategorieId);
+            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev", vyrobek.KategorieId);
             return View(vyrobek);
         }
 
@@ -119,7 +119,7 @@ namespace EshopMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "KategorieId", vyrobek.KategorieId);
+            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev", vyrobek.KategorieId);
             return View(vyrobek);
         }
 

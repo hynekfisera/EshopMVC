@@ -19,7 +19,7 @@ namespace EshopMVC.Controllers
 
 		public IActionResult Index()
 		{
-			return View(_context.Kategorie.Where(x => x.ParentKategorieId == null).ToList());
+			return View((_context.Kategorie.Where(x => x.ParentKategorieId == null).ToList(), _context.Vyrobek.ToList()));
 		}
 
 		public IActionResult Privacy()
