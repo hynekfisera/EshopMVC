@@ -4,7 +4,7 @@
 	ViewData["Title"] = "Index";
 }
 
-<h1 class="tw-text-4xl">Index</h1>
+<h1>Index</h1>
 
 @*<p>
     <a asp-action="Create">Create New</a>
@@ -36,18 +36,20 @@
 	</tbody>
 </table>
 
-<h2 class="tw-text-2xl">Produkty</h2>
+<h2>Produkty</h2>
 <section class="tw-grid tw-grid-cols-4 tw-gap-4 py-4">
-@foreach (var item in Model.Vyrobky)
-{
-	<div class="card">
-		@if (item.Obrazek != null) {
-			<img class="card-img-top" src="@item.Obrazek" alt="Produkt">
-		}
-		<div class="card-body">
-			<h5 class="card-title">@item.Nazev</h5>
-			<p class="card-text">@item.Popis</p>
+	@foreach (var item in Model.Vyrobky)
+	{
+		<div class="card">
+			@if (item.Obrazek != null)
+			{
+				<img class="card-img-top tw-p-12" src="@item.Obrazek" alt="Produkt">
+			}
+			<div class="card-body">
+				<h5 class="card-title">@item.Nazev</h5>
+				<p class="card-text">@item.Popis</p>
+				<p class="card-text tw-font-medium">@item.Cena Kč</p>
+			</div>
 		</div>
-</div>
 	}
 </section>

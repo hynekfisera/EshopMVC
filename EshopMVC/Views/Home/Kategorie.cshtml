@@ -1,17 +1,17 @@
-﻿@model EshopMVC.Models.Kategorie
+﻿@model (EshopMVC.Models.Kategorie Kategorie, List<EshopMVC.Models.Vyrobek> Vyrobky)
 
 @{
     ViewData["Title"] = "Kategorie";
 }
 
-<h1>Kategorie @Model.Nazev</h1>
+<h1>Kategorie @Model.Kategorie.Nazev</h1>
 
 @*<p>
     <a asp-action="Create">Create New</a>
 </p>*@
-@if (Model.ParentKategorie != null)
+@if (Model.Kategorie.ParentKategorie != null)
 {
-    <a href="/Home/Kategorie/@Model.ParentKategorie.KategorieId">Zpět na @Model.ParentKategorie.Nazev</a>
+    <a href="/Home/Kategorie/@Model.Kategorie.ParentKategorie.KategorieId">Zpět na @Model.Kategorie.ParentKategorie.Nazev</a>
 } else
 {
     <a href="/">Zpět na hlavní stránku</a>
@@ -20,13 +20,14 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nazev)
+                @Html.DisplayNameFor(model => model.Kategorie.Nazev)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.ChildKategorie) {
+        @foreach (var item in Model.Kategorie.ChildKategorie)
+        {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Nazev)
@@ -41,3 +42,21 @@
 }
     </tbody>
 </table>
+
+<h2 class="tw-text-2xl">Produkty</h2>
+<section class="tw-grid tw-grid-cols-4 tw-gap-4 py-4">
+    @foreach (var item in Model.Vyrobky)
+    {
+        <div class="card">
+            @if (item.Obrazek != null)
+            {
+                <img class="card-img-top tw-p-12" src="@item.Obrazek" alt="Produkt">
+            }
+            <div class="card-body">
+                <h5 class="card-title tw-font-bold">@item.Nazev</h5>
+                <p class="card-text">@item.Popis</p>
+                <p class="card-text tw-font-medium">@item.Cena Kč</p>
+            </div>
+        </div>
+    }
+</section>
