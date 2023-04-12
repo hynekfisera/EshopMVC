@@ -27,6 +27,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Kategorie)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sleva)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -46,7 +49,10 @@
                 @Html.DisplayFor(modelItem => item.Cena)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Kategorie.Nazev)
+                @Html.DisplayFor(modelItem => item.Kategorie.KategorieId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sleva.SlevaId)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.VyrobekId">Edit</a> |

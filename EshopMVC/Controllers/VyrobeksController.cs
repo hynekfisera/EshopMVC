@@ -22,7 +22,7 @@ namespace EshopMVC.Controllers
         // GET: Vyrobeks
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Vyrobek.Include(v => v.Kategorie);
+            var applicationDbContext = _context.Vyrobek.Include(v => v.Kategorie).Include(v => v.Sleva);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -36,6 +36,7 @@ namespace EshopMVC.Controllers
 
             var vyrobek = await _context.Vyrobek
                 .Include(v => v.Kategorie)
+                .Include(v => v.Sleva)
                 .FirstOrDefaultAsync(m => m.VyrobekId == id);
             if (vyrobek == null)
             {
@@ -49,6 +50,9 @@ namespace EshopMVC.Controllers
         public IActionResult Create()
         {
             ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev");
+			var select = new SelectList(_context.Sleva, "SlevaId", "Hodnota");
+			var item = new SelectListItem { Disabled = false, Group = null, Selected = false, Text = "Žádná sleva", Value = "" };
+			ViewData["SlevaId"] = select.Append(item);
             return View();
         }
 
@@ -57,7 +61,7 @@ namespace EshopMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("VyrobekId,Nazev,Popis,Obrazek,Cena,KategorieId")] Vyrobek vyrobek)
+        public async Task<IActionResult> Create([Bind("VyrobekId,Nazev,Popis,Obrazek,Cena,KategorieId,SlevaId")] Vyrobek vyrobek)
         {
             if (ModelState.IsValid)
             {
@@ -67,6 +71,7 @@ namespace EshopMVC.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev", vyrobek.KategorieId);
+            ViewData["SlevaId"] = new SelectList(_context.Sleva, "SlevaId", "Hodnota", vyrobek.SlevaId);
             return View(vyrobek);
         }
 
@@ -84,7 +89,10 @@ namespace EshopMVC.Controllers
                 return NotFound();
             }
             ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev", vyrobek.KategorieId);
-            return View(vyrobek);
+			var select = new SelectList(_context.Sleva, "SlevaId", "Hodnota");
+			var item = new SelectListItem { Disabled = false, Group = null, Selected = false, Text = "Žádná sleva", Value = "" };
+			ViewData["SlevaId"] = select.Append(item);
+			return View(vyrobek);
         }
 
         // POST: Vyrobeks/Edit/5
@@ -92,7 +100,7 @@ namespace EshopMVC.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("VyrobekId,Nazev,Popis,Obrazek,Cena,KategorieId")] Vyrobek vyrobek)
+        public async Task<IActionResult> Edit(Guid id, [Bind("VyrobekId,Nazev,Popis,Obrazek,Cena,KategorieId,SlevaId")] Vyrobek vyrobek)
         {
             if (id != vyrobek.VyrobekId)
             {
@@ -119,7 +127,8 @@ namespace EshopMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "Nazev", vyrobek.KategorieId);
+            ViewData["KategorieId"] = new SelectList(_context.Kategorie, "KategorieId", "KategorieId", vyrobek.KategorieId);
+            ViewData["SlevaId"] = new SelectList(_context.Sleva, "SlevaId", "SlevaId", vyrobek.SlevaId);
             return View(vyrobek);
         }
 
@@ -133,6 +142,7 @@ namespace EshopMVC.Controllers
 
             var vyrobek = await _context.Vyrobek
                 .Include(v => v.Kategorie)
+                .Include(v => v.Sleva)
                 .FirstOrDefaultAsync(m => m.VyrobekId == id);
             if (vyrobek == null)
             {

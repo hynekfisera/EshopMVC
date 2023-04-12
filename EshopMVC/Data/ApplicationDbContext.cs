@@ -12,5 +12,6 @@ namespace EshopMVC.Data
 		}
 		public DbSet<Kategorie> Kategorie { get; set; }
 		public DbSet<Vyrobek> Vyrobek { get; set; }
+		public DbSet<EshopMVC.Models.Sleva> Sleva { get; set; } = default!;
 	}
 }
